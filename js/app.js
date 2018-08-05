@@ -31,14 +31,37 @@ class Player {
         this.y = 83 * (5 - 1/2)
         this.sprite = 'images/char-boy.png'
     }
-    update() {
-
+    update(direction) {
+        switch (direction) {
+            case 'up':
+                if (this.y - 83 > 83 * (-1 - 1/2)) {
+                    this.y -= 83
+                }
+                break;
+            case 'down':
+                if (this.y + 83 < 83 * (6 - 1/2)) {
+                    this.y += 83
+                }
+                break;
+            case 'left':
+                if (this.x - 100 > -1 * 100) {
+                    this.x -= 100
+                }
+                break;
+            case 'right':
+                if (this.x + 100 < 5 * 100) {
+                    this.x += 100
+                }
+                break;
+            default:
+                break;
+        }
     }
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
-    handleInput() {
-
+    handleInput(direction) {
+        this.update(direction)
     }
 }
 
