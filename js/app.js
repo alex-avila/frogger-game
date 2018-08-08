@@ -2,17 +2,24 @@
 const randomInRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 const render = (sprite, x, y) => ctx.drawImage(Resources.get(sprite), x, y);
 
+// Parent Class
+class PositionedThing {
+    constructor(sprite, x, y) {
+        this.x = x
+        this.y = y
+        this.sprite = sprite
+    }
+}
+
 // Enemies our player must avoid
-class Enemy {
-    constructor() {
-        // Variables applied to each of our instances go here,
-        // we've provided one for you to get started
-        this.x = -1 * 100;
-        this.y = 83 * (randomInRange(1, 3) - 1/2);
+class Enemy extends PositionedThing {
+    constructor(
+        sprite = 'images/enemy-bug.png',
+        x = -1 * 100,
+        y = 83 * (randomInRange(1, 3) - 1/2)
+    ) {
+        super(sprite, x, y)
         this.speed = randomInRange(300, 600);
-        // The image/sprite for our enemies, this uses
-        // a helper we've provided to easily load images
-        this.sprite = 'images/enemy-bug.png';
     }
 
     // Update the enemy's position, required method for game
@@ -25,8 +32,8 @@ class Enemy {
         // Reset enemies
         if (this.x > 5 * 100) {
             this.x = -1 * 100;
-            this.y = 83 * ((Math.floor(Math.random() * 3) + 1) - 1/2);
-            this.speed = Math.floor(Math.random() * (600 - 300 + 1)) + 300;
+            this.y = 83 * (randomInRange(1, 3) - 1/2);
+            this.speed = randomInRange(300, 600);
         }
     
         // Lose condition
@@ -50,15 +57,14 @@ class Enemy {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-class Player {
-    constructor() {
-        this.initialCoordinates = {
-            x: 2 * 100,
-            y: 83 * (5 - 1/2)
-        };
-        this.x = this.initialCoordinates.x;
-        this.y = this.initialCoordinates.y;
-        this.sprite = 'images/char-boy.png';
+class Player extends PositionedThing {
+    constructor(
+        sprite = 'images/char-boy.png',
+        x = 2 * 100,
+        y = 83 * (5 - 1/2)
+    ) {
+        super(sprite, x, y)
+        this.initialCoordinates = { x, y };
     }
 
     reset() {
@@ -67,7 +73,7 @@ class Player {
     }
 
     update(x, y) {
-        if (x && y) {
+        if (x !== undefined && y) {
             this.x = x;
             this.y = y;
         }
