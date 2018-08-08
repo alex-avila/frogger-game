@@ -1,5 +1,7 @@
 # Frogger Game: A Frontend Nanodegree Arcade Game Project
 
+Starter code taken from [Udacity's frontend-nanodegree-arcade-game](https://github.com/udacity/frontend-nanodegree-arcade-game).
+
 ## How to run the game
 
 To run using the terminal simply run these commands
