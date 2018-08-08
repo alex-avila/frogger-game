@@ -5,9 +5,9 @@ const render = (sprite, x, y) => ctx.drawImage(Resources.get(sprite), x, y);
 // Parent Class
 class PositionedThing {
     constructor(sprite, x, y) {
-        this.x = x
-        this.y = y
-        this.sprite = sprite
+        this.x = x;
+        this.y = y;
+        this.sprite = sprite;
     }
 }
 
@@ -18,7 +18,7 @@ class Enemy extends PositionedThing {
         x = -1 * 100,
         y = 83 * (randomInRange(1, 3) - 1/2)
     ) {
-        super(sprite, x, y)
+        super(sprite, x, y);
         this.speed = randomInRange(300, 600);
     }
 
@@ -63,7 +63,7 @@ class Player extends PositionedThing {
         x = 2 * 100,
         y = 83 * (5 - 1/2)
     ) {
-        super(sprite, x, y)
+        super(sprite, x, y);
         this.initialCoordinates = { x, y };
     }
 
