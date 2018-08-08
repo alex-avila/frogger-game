@@ -1,6 +1,25 @@
-frontend-nanodegree-arcade-game
-===============================
+# frontend-nanodegree-arcade-game
 
-Students should use this [rubric](https://review.udacity.com/#!/projects/2696458597/rubric) for self-checking their submission. Make sure the functions you write are **object-oriented** - either class functions (like Player and Enemy) or class prototype functions such as Enemy.prototype.checkCollisions, and that the keyword 'this' is used appropriately within your class and class prototype functions to refer to the object the function is called upon. Also be sure that the **readme.md** file is updated with your instructions on both how to 1. Run and 2. Play your arcade game.
+## How to run the game
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+To run using the terminal simply run these commands
+
+```js
+git clone https://github.com/alex-avila/frogger-game.git
+cd frogger-game
+open index.html
+```
+
+...or
+
+1. Download the ZIP file
+2. Unzip the ZIP file
+3. Open the newly created folder
+4. Open the index.html file in your browser
+5. Play the game!
+
+## How to play the game
+
+You are the boy in the grass and your goal is to get across to the water without crashing with a bug. You'll know you won if the game resets when you reach the water.
+
+* Move using the arrow keys to reach the water.
