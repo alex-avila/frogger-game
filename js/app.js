@@ -1,44 +1,50 @@
+// Helper functions
+const randomInRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+const render = (sprite, x, y) => ctx.drawImage(Resources.get(sprite), x, y);
+
 // Enemies our player must avoid
-var Enemy = function() {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
-    this.x = -1 * 100
-    this.y = 83 * ((Math.floor(Math.random() * 3) + 1) - 1/2)
-    this.speed = Math.floor(Math.random() * (600 - 300 + 1)) + 300
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
-    this.sprite = 'images/enemy-bug.png';
-};
-
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
-Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
-
-    // Reset enemies
-    if (this.x > 5 * 100) {
-        this.x = -1 * 100
-        this.y = 83 * ((Math.floor(Math.random() * 3) + 1) - 1/2)
-        this.speed = Math.floor(Math.random() * (600 - 300 + 1)) + 300
+class Enemy {
+    constructor() {
+        // Variables applied to each of our instances go here,
+        // we've provided one for you to get started
+        this.x = -1 * 100;
+        this.y = 83 * (randomInRange(1, 3) - 1/2);
+        this.speed = randomInRange(300, 600);
+        // The image/sprite for our enemies, this uses
+        // a helper we've provided to easily load images
+        this.sprite = 'images/enemy-bug.png';
     }
 
-    // Lose condition
-    if (
-        this.x < player.x + 5
-        && this.x > player.x - 5
-        && this.y === player.y
-    ) {
-        const { x, y } = player.initialCoordinates
-        player.update(x, y)
+    // Update the enemy's position, required method for game
+    // Parameter: dt, a time delta between ticks
+    update(dt) {
+        // You should multiply any movement by the dt parameter
+        // which will ensure the game runs at the same speed for
+        // all computers.
+    
+        // Reset enemies
+        if (this.x > 5 * 100) {
+            this.x = -1 * 100;
+            this.y = 83 * ((Math.floor(Math.random() * 3) + 1) - 1/2);
+            this.speed = Math.floor(Math.random() * (600 - 300 + 1)) + 300;
+        }
+    
+        // Lose condition
+        if (
+            this.x < player.x + 5
+            && this.x > player.x - 5
+            && this.y === player.y
+        ) {
+            const { x, y } = player.initialCoordinates;
+            player.update(x, y);
+        }
+        this.x += this.speed * dt;
     }
-    this.x += this.speed * dt
-};
 
-// Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    // Draw the enemy on the screen, required method for game
+    render() {
+        render(this.sprite, this.x, this.y);
+    }
 };
 
 // Now write your own player class
@@ -49,43 +55,50 @@ class Player {
         this.initialCoordinates = {
             x: 2 * 100,
             y: 83 * (5 - 1/2)
-        }
-        this.x = this.initialCoordinates.x
-        this.y = this.initialCoordinates.y
-        this.sprite = 'images/char-boy.png'
+        };
+        this.x = this.initialCoordinates.x;
+        this.y = this.initialCoordinates.y;
+        this.sprite = 'images/char-boy.png';
     }
+
+    reset() {
+        const { x, y } = this.initialCoordinates;
+        this.update(x, y);
+    }
+
     update(x, y) {
         if (x && y) {
-            this.x = x
-            this.y = y
+            this.x = x;
+            this.y = y;
         }
     }
+
     render() {
-        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+        render(this.sprite, this.x, this.y);
     }
+
     handleInput(direction) {
         switch (direction) {
             case 'up':
                 if (this.y -83 === 83 * (0 - 1/2)) {
-                    const { x, y } = this.initialCoordinates
-                    this.update(x, y)
+                    this.reset();
                 } else if (this.y - 83 > 83 * (-1 - 1/2)) {
-                    this.update(this.x, this.y - 83)
+                    this.update(this.x, this.y - 83);
                 }
                 break;
             case 'down':
                 if (this.y + 83 < 83 * (6 - 1/2)) {
-                    this.update(this.x, this.y + 83)
+                    this.update(this.x, this.y + 83);
                 }
                 break;
             case 'left':
                 if (this.x - 100 > -1 * 100) {
-                    this.update(this.x - 100, this.y)
+                    this.update(this.x - 100, this.y);
                 }
                 break;
             case 'right':
                 if (this.x + 100 < 5 * 100) {
-                    this.update(this.x + 100, this.y)
+                    this.update(this.x + 100, this.y);
                 }
         }
     }
@@ -94,12 +107,12 @@ class Player {
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
-const allEnemies = []
+const allEnemies = [];
 for (let i = 0; i < 3; i++) {
-    allEnemies.push(new Enemy())
+    allEnemies.push(new Enemy());
 }
 // Place the player object in a variable called player
-const player = new Player()
+const player = new Player();
 
 
 
