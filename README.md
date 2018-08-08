@@ -1,4 +1,4 @@
-# frontend-nanodegree-arcade-game
+# Frogger Game: A Frontend Nanodegree Arcade Game Project
 
 ## How to run the game
 
