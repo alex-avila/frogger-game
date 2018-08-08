@@ -1,6 +1,8 @@
 // Helper functions
 const randomInRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 const render = (sprite, x, y) => ctx.drawImage(Resources.get(sprite), x, y);
+const yCenter = (coord) => 83 * (coord - 1/2);
+const xCenter = (coord) => coord * 100;
 
 // Parent Class
 class PositionedThing {
@@ -15,8 +17,8 @@ class PositionedThing {
 class Enemy extends PositionedThing {
     constructor(
         sprite = 'images/enemy-bug.png',
-        x = -1 * 100,
-        y = 83 * (randomInRange(1, 3) - 1/2)
+        x = xCenter(-1),
+        y = yCenter(randomInRange(1, 3))
     ) {
         super(sprite, x, y);
         this.speed = randomInRange(300, 600);
@@ -30,9 +32,9 @@ class Enemy extends PositionedThing {
         // all computers.
     
         // Reset enemies
-        if (this.x > 5 * 100) {
-            this.x = -1 * 100;
-            this.y = 83 * (randomInRange(1, 3) - 1/2);
+        if (this.x > xCenter(5)) {
+            this.x = xCenter(-1);
+            this.y = yCenter(randomInRange(1, 3));
             this.speed = randomInRange(300, 600);
         }
     
@@ -60,11 +62,18 @@ class Enemy extends PositionedThing {
 class Player extends PositionedThing {
     constructor(
         sprite = 'images/char-boy.png',
-        x = 2 * 100,
-        y = 83 * (5 - 1/2)
+        x = xCenter(2),
+        y = yCenter(5)
     ) {
         super(sprite, x, y);
         this.initialCoordinates = { x, y };
+        this.boundaries = {
+            up: yCenter(-1),
+            down: yCenter(6),
+            left: xCenter(-1),
+            right: xCenter(5),
+            win: yCenter(0)
+        };
     }
 
     reset() {
@@ -84,26 +93,27 @@ class Player extends PositionedThing {
     }
 
     handleInput(direction) {
+        const { boundaries } = this
         switch (direction) {
             case 'up':
-                if (this.y -83 === 83 * (0 - 1/2)) {
+                if (this.y -83 === boundaries.win) {
                     this.reset();
-                } else if (this.y - 83 > 83 * (-1 - 1/2)) {
+                } else if (this.y - 83 > boundaries.up) {
                     this.update(this.x, this.y - 83);
                 }
                 break;
             case 'down':
-                if (this.y + 83 < 83 * (6 - 1/2)) {
+                if (this.y + 83 < boundaries.down) {
                     this.update(this.x, this.y + 83);
                 }
                 break;
             case 'left':
-                if (this.x - 100 > -1 * 100) {
+                if (this.x - 100 > boundaries.left) {
                     this.update(this.x - 100, this.y);
                 }
                 break;
             case 'right':
-                if (this.x + 100 < 5 * 100) {
+                if (this.x + 100 < boundaries.right) {
                     this.update(this.x + 100, this.y);
                 }
         }
