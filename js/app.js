@@ -5,6 +5,16 @@ const render = (sprite, x, y) => ctx.drawImage(Resources.get(sprite), x, y);
 const yCenter = (coord) => 83 * (coord - 1/2);
 const xCenter = (coord) => coord * 100;
 
+// DOM elements
+const modal = document.getElementById('modal');
+const scoreDisplay = document.getElementById('modal__score');
+const playBtn = document.getElementById('modal__btn');
+
+// DOM manipulation
+const toggleModal = () => modal.classList.toggle('visible')
+playBtn.addEventListener('click', toggleModal)
+modal.addEventListener('click', e => e.target.id === 'modal' ? toggleModal() : null)
+
 // Parent Class
 class PositionedThing {
     constructor(sprite, x, y) {
@@ -98,6 +108,7 @@ class Player extends PositionedThing {
         switch (direction) {
             case 'up':
                 if (this.y -83 === boundaries.win) {
+                    toggleModal();
                     this.reset();
                 } else if (this.y - 83 > boundaries.up) {
                     this.update(this.x, this.y - 83);
