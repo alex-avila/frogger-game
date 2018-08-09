@@ -4,7 +4,7 @@ const randomInRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) 
 const render = (sprite, x, y) => ctx.drawImage(Resources.get(sprite), x, y);
 const yCenter = (coord) => 83 * (coord - 1/2);
 const xCenter = (coord) => coord * 100;
-const getScore = (moves, time) => Math.round(moves / time / 2 * 500);
+const getScore = (moves, time) => Math.round(5 / time / 2 * 500 - (moves * 10));
 
 // DOM variables
 const modal = document.getElementById('modal');
