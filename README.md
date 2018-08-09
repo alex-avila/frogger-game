@@ -22,6 +22,6 @@ open index.html
 
 ## How to play the game
 
-You are the boy in the grass and your goal is to get across to the water without crashing with a bug. You'll know you won if the game resets when you reach the water.
+You are the girl with the pink hair in the grass and your goal is to get across to the water without crashing into a bug.
 
 * Move using the arrow keys to reach the water.
