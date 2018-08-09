@@ -41,8 +41,8 @@ class Enemy extends PositionedThing {
     
         // Lose condition
         if (
-            this.x < player.x + 5
-            && this.x > player.x - 5
+            this.x < player.x + 40
+            && this.x > player.x - 40
             && this.y === player.y
         ) {
             const { x, y } = player.initialCoordinates;
