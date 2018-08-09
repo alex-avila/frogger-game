@@ -33,6 +33,7 @@ const toggleModal = () => {
     modal.classList.toggle('visible');
     setTimeout(() => displayScore(score), 250);
     isModalShown = !isModalShown;
+    if (!isModalShown) score = 0
 };
 
 playBtn.addEventListener('click', toggleModal);
