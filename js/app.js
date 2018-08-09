@@ -97,7 +97,7 @@ class Enemy extends PositionedThing {
 // a handleInput() method.
 class Player extends PositionedThing {
     constructor(
-        sprite = 'images/char-boy.png',
+        sprite = 'images/char-pink-girl.png',
         x = xCenter(2),
         y = yCenter(5)
     ) {
