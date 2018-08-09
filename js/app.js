@@ -1,3 +1,4 @@
+'use strict';
 // Helper functions
 const randomInRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 const render = (sprite, x, y) => ctx.drawImage(Resources.get(sprite), x, y);
